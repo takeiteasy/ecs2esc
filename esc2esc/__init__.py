@@ -22,10 +22,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from sys import exit, stdin
+from sys import exit, stdin, stdout
 from signal import signal, SIGINT
 from platform import system
-from typing import Optional
+from typing import Optional, Callable
 
 if system() == "Windows":
     import msvcrt
@@ -33,7 +33,7 @@ else:
     import termios
     from select import select
 
-def signal_handler(sig, frame):
+def _signal_handler(sig, frame):
     exit(0)
 
 def _getch():
@@ -66,15 +66,21 @@ class Term:
 
 __term__ = None
 
+ESCAPE = 27
+
 def wait2escape(msg: Optional[str] = "Press escape to interrupt...\n",
-                key: Optional[int] = 27):
+                key: Optional[int] = ESCAPE,
+                handle_signals: Optional[bool] = True,
+                signal_handler: Optional[Callable[int, int]] = _signal_handler):
     global __term__
     if not __term__:
         if msg:
             print(msg, end="")
-        signal(SIGINT, signal_handler)
+            stdout.flush()
+        if handle_signals and signal_handler:
+            signal(SIGINT, signal_handler)
         __term__ = Term()
     if kbhit():
-        if not key or ord(getch()) == 27:
+        if not key or ord(getch()) == key:
             return False
     return True

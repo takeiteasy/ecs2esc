@@ -3,7 +3,7 @@
 A very simple library that loops until you press escape. Should work on windows, linux and macos.
 
 > [!NOTE]
-> `pip install esc2esc==0.0.1`
+> `pip install esc2esc==0.0.2`
 
 ```python
 from esc2esc import wait2escape
