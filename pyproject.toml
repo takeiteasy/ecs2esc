@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=72.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "esc2esc"
+version = "0.0.1"
+authors = [
+  { name="George Watson", email="gigolo@hotmail.co.uk" },
+]
+description = "Press ESC to interrupt"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/takeiteasy/esc2esc"
+Issues = "https://github.com/takeiteasy/esc2esc/issues"
